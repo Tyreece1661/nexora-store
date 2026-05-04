@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora | All Products</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="products.css">
+</head>
+<body>
+    <nav id="navbar">
+        <a href="index.html" class="logo">Nexora</a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html" class="active">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="index.html#how-it-works">How It Works</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+            <li>
+                <div class="cart-icon" id="cartToggle">
+                    &#128722;
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </li>
+        </ul>
+        <button class="mobile-menu" id="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <section class="products-hero">
+        <div class="products-hero-content">
+            <span class="section-label">Full Catalogue</span>
+            <h1>All <span class="highlight">Products</span></h1>
+            <p>Browse our complete range of premium AI and enterprise technology from Dynamiccom.</p>
+        </div>
+    </section>
+
+    <section class="products-page" id="productsPage">
+        <div class="filter-bar">
+            <div class="filter-search">
+                <input type="text" id="searchInput" placeholder="Search products...">
+            </div>
+            <div class="filter-categories" id="filterCategories">
+                <button class="filter-btn active" data-category="all">All</button>
+                <button class="filter-btn" data-category="AI Cameras">AI Cameras</button>
+                <button class="filter-btn" data-category="AI Recorders">AI Recorders</button>
+                <button class="filter-btn" data-category="AI Microphones">AI Microphones</button>
+                <button class="filter-btn" data-category="AR/AI Glasses">AR/AI Glasses</button>
+                <button class="filter-btn" data-category="Portable Displays">Portable Displays</button>
+                <button class="filter-btn" data-category="Wireless Conferencing">Wireless Conferencing</button>
+                <button class="filter-btn" data-category="Digital Signage">Digital Signage</button>
+                <button class="filter-btn" data-category="Smart Displays">Smart Displays</button>
+                <button class="filter-btn" data-category="E-Ink Tablets">E-Ink Tablets</button>
+                <button class="filter-btn" data-category="Photography Drones">Photography Drones</button>
+                <button class="filter-btn" data-category="360°/3D Cameras">360°/3D Cameras</button>
+                <button class="filter-btn" data-category="Power Stations">Power Stations</button>
+            </div>
+        </div>
+        <div class="products-grid" id="productsGrid"></div>
+        <div class="no-results" id="noResults">
+            <p>No products found matching your search.</p>
+        </div>
+    </section>
+
+    <section class="videos-section" id="videosSection">
+        <div class="section-header">
+            <span class="section-label">See Them In Action</span>
+            <h2>Product <span class="highlight">Videos</span></h2>
+            <p>Watch demos and reviews of our premium technology.</p>
+        </div>
+        <div class="videos-grid" id="videosGrid"></div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="section-header fade-in">
+            <span class="section-label">Get In Touch</span>
+            <h2>Need Help?</h2>
+            <p>Our team is ready to assist you with any questions or orders.</p>
+        </div>
+        <div class="contact-info fade-in">
+            <div class="contact-item">
+                <div class="contact-icon">WA</div>
+                <div>
+                    <strong>WhatsApp</strong><br>
+                    <a href="https://wa.me/27664752916">066 475 2916</a>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">@</div>
+                <div>
+                    <strong>Email</strong><br>
+                    <a href="mailto:reece1818@yahoo.com">reece1818@yahoo.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="#" class="logo">Nexora</a>
+        <p>&copy; 2026 Nexora. All rights reserved.</p>
+    </footer>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">R0.00</span>
+            </div>
+            <button class="whatsapp-checkout" id="whatsappCheckout">
+                <span>&#128172;</span> Order via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script src="image-generator.js"></script>
+    <script src="app.js"></script>
+    <script src="products.js"></script>
+</body>
+</html>

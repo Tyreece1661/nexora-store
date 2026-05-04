@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora | Premium AI Technology Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="splash-screen" id="splashScreen">
+        <div class="splash-content">
+            <div class="splash-3d-wrapper">
+                <div class="splash-3d">
+                    <div class="splash-3d-layer" style="--layer: 1">Nexora</div>
+                    <div class="splash-3d-layer" style="--layer: 2">Nexora</div>
+                    <div class="splash-3d-layer" style="--layer: 3">Nexora</div>
+                    <div class="splash-3d-layer" style="--layer: 4">Nexora</div>
+                    <div class="splash-3d-layer" style="--layer: 5">Nexora</div>
+                </div>
+            </div>
+            <div class="splash-tagline">Premium Technology Solutions</div>
+        </div>
+        <div class="splash-particles" id="splashParticles"></div>
+        <div class="splash-progress">
+            <div class="splash-progress-bar" id="splashProgress"></div>
+        </div>
+    </div>
+
+    <nav id="navbar">
+        <a href="index.html" class="logo">Nexora</a>
+        <ul class="nav-links">
+            <li><a href="products.html">Products</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li>
+                <div class="cart-icon" id="cartToggle">
+                    &#128722;
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </li>
+        </ul>
+        <button class="mobile-menu" id="mobileMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">Premium Technology Solutions</div>
+            <h1>Next-Gen <span class="highlight">AI Technology</span> For Modern Business</h1>
+            <p>Discover AI-powered glasses, wireless boardroom systems, and cutting-edge enterprise technology delivered to your door.</p>
+            <a href="products.html" class="btn-primary">Shop Now <span>&rarr;</span></a>
+        </div>
+    </section>
+
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header fade-in">
+            <span class="section-label">How It Works</span>
+            <h2>Simple 3-Step Process</h2>
+            <p>Ordering your tech has never been easier.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step-card fade-in">
+                <div class="step-number">1</div>
+                <h3>Browse & Add to Cart</h3>
+                <p>Explore our premium tech collection and add items to your cart.</p>
+            </div>
+            <div class="step-card fade-in">
+                <div class="step-number">2</div>
+                <h3>Checkout via WhatsApp</h3>
+                <p>Send your order directly to us on WhatsApp for quick, personal service.</p>
+            </div>
+            <div class="step-card fade-in">
+                <div class="step-number">3</div>
+                <h3>Receive & Enjoy</h3>
+                <p>We process your order and deliver straight to your doorstep.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+        <div class="section-header fade-in">
+            <span class="section-label">Get In Touch</span>
+            <h2>Need Help?</h2>
+            <p>Our team is ready to assist you with any questions or orders.</p>
+        </div>
+        <div class="contact-info fade-in">
+            <div class="contact-item">
+                <div class="contact-icon">WA</div>
+                <div>
+                    <strong>WhatsApp</strong><br>
+                    <a href="https://wa.me/27664752916">066 475 2916</a>
+                </div>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">@</div>
+                <div>
+                    <strong>Email</strong><br>
+                    <a href="mailto:reece1818@yahoo.com">reece1818@yahoo.com</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <a href="#" class="logo">Nexora</a>
+        <p>&copy; 2026 Nexora. All rights reserved.</p>
+    </footer>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Your Cart</h3>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="cart-empty">Your cart is empty</div>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotal">R0.00</span>
+            </div>
+            <button class="whatsapp-checkout" id="whatsappCheckout">
+                <span>&#128172;</span> Order via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

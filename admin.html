@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora | Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="login-screen" id="loginScreen">
+        <div class="login-bg-pattern"></div>
+        <div class="login-box">
+            <div class="login-logo">Nexora</div>
+            <p>Admin Panel Access</p>
+            <div class="login-error" id="loginError">Invalid credentials</div>
+            <input type="text" id="adminUser" placeholder="Username" autocomplete="off">
+            <input type="password" id="adminPass" placeholder="Password">
+            <button class="login-btn" id="loginBtn">Login</button>
+        </div>
+    </div>
+
+    <div class="admin-panel" id="adminPanel">
+        <header class="admin-header">
+            <div class="admin-header-left">
+                <a href="index.html" class="logo">Nexora</a>
+                <span class="admin-badge">Admin</span>
+            </div>
+            <div class="admin-actions">
+                <a href="index.html" class="admin-btn btn-outline">View Store</a>
+                <a href="about.html" class="admin-btn btn-outline">About</a>
+                <button class="admin-btn btn-red" id="logoutBtn">Logout</button>
+            </div>
+        </header>
+
+        <div class="admin-content">
+            <div class="admin-stats" id="adminStats">
+                <div class="stat-card">
+                    <div class="stat-icon">&#128230;</div>
+                    <div class="stat-info">
+                        <h4>Total Products</h4>
+                        <div class="value" id="statProducts">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128451;</div>
+                    <div class="stat-info">
+                        <h4>Categories</h4>
+                        <div class="value" id="statCategories">0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128176;</div>
+                    <div class="stat-info">
+                        <h4>Avg Price</h4>
+                        <div class="value" id="statAvgPrice">R0</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">&#128247;</div>
+                    <div class="stat-info">
+                        <h4>With Images</h4>
+                        <div class="value" id="statWithImages">0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-grid">
+                <div class="admin-section form-section">
+                    <h3 id="formTitle">Add New Product</h3>
+                    <form class="product-form" id="productForm">
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" id="prodName" required placeholder="e.g., AI Smart Glasses Pro">
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="prodCategory" required>
+                                <option value="">Select category</option>
+                                <option value="AI Cameras">AI Cameras</option>
+                                <option value="AI Recorders">AI Recorders</option>
+                                <option value="AI Microphones">AI Microphones</option>
+                                <option value="AR/AI Glasses">AR/AI Glasses</option>
+                                <option value="Portable Displays">Portable Displays</option>
+                                <option value="Wireless Conferencing">Wireless Conferencing</option>
+                                <option value="Digital Signage">Digital Signage</option>
+                                <option value="Smart Displays">Smart Displays</option>
+                                <option value="E-Ink Tablets">E-Ink Tablets</option>
+                                <option value="Photography Drones">Photography Drones</option>
+                                <option value="360/3D Cameras">360/3D Cameras</option>
+                                <option value="Power Stations">Power Stations</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (R)</label>
+                            <input type="number" id="prodPrice" required placeholder="4999" min="0">
+                        </div>
+                        <div class="form-group">
+                            <label>External Image URL (optional)</label>
+                            <input type="url" id="prodImage" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-group full">
+                            <label>Description</label>
+                            <textarea id="prodDesc" required placeholder="Product description..."></textarea>
+                        </div>
+                        <div class="form-group full">
+                            <label>AI Generated Image</label>
+                            <div class="ai-image-section">
+                                <div class="image-preview" id="imagePreview">
+                                    <div class="preview-placeholder">
+                                        <span class="preview-icon">&#128247;</span>
+                                        <span>AI generated image will appear here</span>
+                                    </div>
+                                </div>
+                                <div class="ai-actions">
+                                    <button type="button" class="admin-btn btn-gold" id="generateImageBtn">
+                                        <span>&#9889;</span> Generate AI Image
+                                    </button>
+                                    <button type="button" class="admin-btn btn-outline" id="regenerateBtn" style="display:none">
+                                        <span>&#128260;</span> Regenerate
+                                    </button>
+                                    <span class="ai-status" id="aiStatus"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group full">
+                            <div class="form-actions">
+                                <button type="submit" class="admin-btn btn-gold" id="submitBtn">Add Product</button>
+                                <button type="button" class="admin-btn btn-outline hidden" id="cancelEdit">Cancel Edit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="admin-section table-section">
+                    <div class="table-header">
+                        <h3>Product Inventory</h3>
+                        <div class="table-actions">
+                            <button class="admin-btn btn-outline" id="regenerateAllBtn">Generate All Images</button>
+                            <button class="admin-btn btn-green" id="exportCsvBtn">Export CSV</button>
+                            <button class="admin-btn btn-blue" id="importCsvBtn">Import CSV</button>
+                            <input type="file" id="csvFileInput" accept=".csv" style="display:none">
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="products-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Category</th>
+                                    <th>Price</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="csvImportStatus" class="csv-import-status"></div>
+        </div>
+    </div>
+
+    <script src="image-generator.js"></script>
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginScreen = document.getElementById('loginScreen');
+            const adminPanel = document.getElementById('adminPanel');
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const loginError = document.getElementById('loginError');
+
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                showAdmin();
+            }
+
+            loginBtn.addEventListener('click', handleLogin);
+            document.getElementById('adminPass').addEventListener('keypress', (e) => { if (e.key === 'Enter') handleLogin(); });
+            logoutBtn.addEventListener('click', () => { localStorage.removeItem('adminLoggedIn'); location.reload(); });
+
+            function handleLogin() {
+                const user = document.getElementById('adminUser').value;
+                const pass = document.getElementById('adminPass').value;
+                if (user === 'admin' && pass === 'nexora2026') {
+                    localStorage.setItem('adminLoggedIn', 'true');
+                    showAdmin();
+                } else {
+                    loginError.style.display = 'block';
+                    setTimeout(() => loginError.style.display = 'none', 3000);
+                }
+            }
+
+            function showAdmin() {
+                loginScreen.style.display = 'none';
+                adminPanel.classList.add('active');
+                adminApp.init();
+            }
+        });
+
+        const adminApp = {
+            editingId: null,
+            currentGeneratedImage: null,
+
+            init() {
+                this.renderTable();
+                this.updateStats();
+                this.bindEvents();
+            },
+
+            bindEvents() {
+                const form = document.getElementById('productForm');
+                const imageInput = document.getElementById('prodImage');
+                const cancelBtn = document.getElementById('cancelEdit');
+                const generateBtn = document.getElementById('generateImageBtn');
+                const regenerateBtn = document.getElementById('regenerateBtn');
+                const regenerateAllBtn = document.getElementById('regenerateAllBtn');
+                const exportCsvBtn = document.getElementById('exportCsvBtn');
+                const importCsvBtn = document.getElementById('importCsvBtn');
+                const csvFileInput = document.getElementById('csvFileInput');
+
+                form.addEventListener('submit', (e) => { e.preventDefault(); this.saveProduct(); });
+
+                imageInput.addEventListener('input', (e) => {
+                    const preview = document.getElementById('imagePreview');
+                    if (e.target.value) {
+                        preview.innerHTML = `<img src="${e.target.value}" onerror="this.parentElement.innerHTML='<div class=\\'preview-placeholder\\'><span>Invalid image URL</span></div>'">`;
+                        this.currentGeneratedImage = null;
+                    } else if (!this.currentGeneratedImage) {
+                        preview.innerHTML = '<div class="preview-placeholder"><span class="preview-icon">&#128247;</span><span>AI generated image will appear here</span></div>';
+                    }
+                });
+
+                generateBtn.addEventListener('click', () => {
+                    const name = document.getElementById('prodName').value || 'Product';
+                    const category = document.getElementById('prodCategory').value || 'AI Cameras';
+                    this.generateAIImage(name, category);
+                });
+
+                regenerateBtn.addEventListener('click', () => {
+                    const name = document.getElementById('prodName').value || 'Product';
+                    const category = document.getElementById('prodCategory').value || 'AI Cameras';
+                    this.generateAIImage(name, category);
+                });
+
+                cancelBtn.addEventListener('click', () => { this.resetForm(); });
+
+                regenerateAllBtn.addEventListener('click', () => { this.regenerateAllImages(); });
+
+                exportCsvBtn.addEventListener('click', () => { this.exportCSV(); });
+
+                importCsvBtn.addEventListener('click', () => { csvFileInput.click(); });
+
+                csvFileInput.addEventListener('change', (e) => {
+                    if (e.target.files.length > 0) {
+                        this.importCSV(e.target.files[0]);
+                        e.target.value = '';
+                    }
+                });
+            },
+
+            generateAIImage(name, category) {
+                const btn = document.getElementById('generateImageBtn');
+                const status = document.getElementById('aiStatus');
+                const regenerateBtn = document.getElementById('regenerateBtn');
+                const preview = document.getElementById('imagePreview');
+
+                btn.disabled = true;
+                status.textContent = 'Generating...';
+                status.style.color = 'var(--gold)';
+
+                setTimeout(() => {
+                    try {
+                        const imageData = ProductImageGenerator.generateImage({ name, category });
+                        this.currentGeneratedImage = imageData;
+                        preview.innerHTML = `<img src="${imageData}">`;
+                        status.textContent = 'Image generated!';
+                        status.style.color = 'var(--green)';
+                        regenerateBtn.style.display = 'inline-flex';
+                    } catch (err) {
+                        status.textContent = 'Generation failed';
+                        status.style.color = 'var(--red)';
+                    }
+                    btn.disabled = false;
+                }, 500);
+            },
+
+            saveProduct() {
+                const name = document.getElementById('prodName').value;
+                const category = document.getElementById('prodCategory').value;
+                const price = parseFloat(document.getElementById('prodPrice').value);
+                const externalImage = document.getElementById('prodImage').value;
+                const description = document.getElementById('prodDesc').value;
+                const image = externalImage || this.currentGeneratedImage || '';
+
+                let products = getProducts();
+
+                if (this.editingId) {
+                    const index = products.findIndex(p => p.id === this.editingId);
+                    if (index !== -1) {
+                        products[index] = { ...products[index], name, category, price, image, description };
+                    }
+                    this.editingId = null;
+                } else {
+                    const newId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+                    products.push({ id: newId, name, category, price, image, description });
+                }
+
+                saveProducts(products);
+                this.resetForm();
+                this.renderTable();
+                this.updateStats();
+            },
+
+            editProduct(id) {
+                const products = getProducts();
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+
+                this.editingId = id;
+                document.getElementById('prodName').value = product.name;
+                document.getElementById('prodCategory').value = product.category;
+                document.getElementById('prodPrice').value = product.price;
+                document.getElementById('prodImage').value = '';
+                document.getElementById('prodDesc').value = product.description;
+                document.getElementById('formTitle').textContent = 'Edit Product';
+                document.getElementById('submitBtn').textContent = 'Update Product';
+                document.getElementById('cancelEdit').classList.remove('hidden');
+
+                const preview = document.getElementById('imagePreview');
+                if (product.image) {
+                    preview.innerHTML = `<img src="${product.image}">`;
+                    if (product.image.startsWith('data:')) {
+                        this.currentGeneratedImage = product.image;
+                        document.getElementById('regenerateBtn').style.display = 'inline-flex';
+                    }
+                } else {
+                    preview.innerHTML = '<div class="preview-placeholder"><span class="preview-icon">&#128247;</span><span>AI generated image will appear here</span></div>';
+                }
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            },
+
+            deleteProduct(id) {
+                if (!confirm('Delete this product?')) return;
+                let products = getProducts();
+                products = products.filter(p => p.id !== id);
+                saveProducts(products);
+                this.renderTable();
+                this.updateStats();
+            },
+
+            regenerateProductImage(id) {
+                const products = getProducts();
+                const product = products.find(p => p.id === id);
+                if (!product) return;
+
+                const imageData = ProductImageGenerator.generateImage({ name: product.name, category: product.category });
+                product.image = imageData;
+                saveProducts(products);
+                this.renderTable();
+                this.updateStats();
+            },
+
+            regenerateAllImages() {
+                if (!confirm('Regenerate AI images for all products without external images?')) return;
+
+                let products = getProducts();
+                let count = 0;
+
+                products.forEach(product => {
+                    if (!product.image || !product.image.startsWith('https://')) {
+                        product.image = ProductImageGenerator.generateImage({ name: product.name, category: product.category });
+                        count++;
+                    }
+                });
+
+                saveProducts(products);
+                this.renderTable();
+                this.updateStats();
+                alert(`Generated ${count} images successfully!`);
+            },
+
+            resetForm() {
+                document.getElementById('productForm').reset();
+                document.getElementById('imagePreview').innerHTML = '<div class="preview-placeholder"><span class="preview-icon">&#128247;</span><span>AI generated image will appear here</span></div>';
+                document.getElementById('formTitle').textContent = 'Add New Product';
+                document.getElementById('submitBtn').textContent = 'Add Product';
+                document.getElementById('cancelEdit').classList.add('hidden');
+                document.getElementById('regenerateBtn').style.display = 'none';
+                document.getElementById('aiStatus').textContent = '';
+                this.currentGeneratedImage = null;
+            },
+
+            renderTable() {
+                const tbody = document.getElementById('productsTableBody');
+                const products = getProducts();
+
+                if (products.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:2rem;color:var(--gray-dark);">No products yet. Add your first product above.</td></tr>';
+                    return;
+                }
+
+                let html = '';
+                products.forEach(product => {
+                    const imgHtml = product.image
+                        ? `<img src="${product.image}" alt="${product.name}" style="width:100%;height:100%;object-fit:cover;" onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\\'display:flex;align-items:center;justify-content:center;height:100%;background:var(--black);color:var(--gold);font-size:0.85rem;font-weight:700\\'>${product.name.charAt(0)}</div>'">`
+                        : `<div style="display:flex;align-items:center;justify-content:center;height:100%;background:var(--black);color:var(--gold);font-size:0.85rem;font-weight:700">${product.name.charAt(0)}</div>`;
+
+                    html += `
+                        <tr>
+                            <td><div class="product-thumb">${imgHtml}</div></td>
+                            <td><strong>${product.name}</strong></td>
+                            <td><span class="category-tag">${product.category}</span></td>
+                            <td>R${product.price.toLocaleString()}</td>
+                            <td>
+                                <div class="action-btns">
+                                    <button class="action-btn btn-gold" onclick="adminApp.editProduct(${product.id})">Edit</button>
+                                    <button class="action-btn btn-blue" onclick="adminApp.regenerateProductImage(${product.id})">AI Image</button>
+                                    <button class="action-btn btn-red" onclick="adminApp.deleteProduct(${product.id})">Delete</button>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                tbody.innerHTML = html;
+            },
+
+            updateStats() {
+                const products = getProducts();
+                document.getElementById('statProducts').textContent = products.length;
+
+                const categories = [...new Set(products.map(p => p.category))];
+                document.getElementById('statCategories').textContent = categories.length;
+
+                const avg = products.length > 0 ? products.reduce((sum, p) => sum + p.price, 0) / products.length : 0;
+                document.getElementById('statAvgPrice').textContent = `R${Math.round(avg).toLocaleString()}`;
+
+                const withImages = products.filter(p => p.image).length;
+                document.getElementById('statWithImages').textContent = `${withImages}/${products.length}`;
+            },
+
+            exportCSV() {
+                const products = getProducts();
+                if (products.length === 0) {
+                    alert('No products to export.');
+                    return;
+                }
+
+                const headers = ['id', 'name', 'category', 'price', 'image', 'description'];
+                const rows = products.map(p =>
+                    headers.map(h => {
+                        const val = String(p[h] || '').replace(/"/g, '""');
+                        return `"${val}"`;
+                    }).join(',')
+                );
+
+                const csv = [headers.join(','), ...rows].join('\n');
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `nexora-products-${new Date().toISOString().split('T')[0]}.csv`;
+                link.click();
+                URL.revokeObjectURL(url);
+            },
+
+            importCSV(file) {
+                const reader = new FileReader();
+                const statusEl = document.getElementById('csvImportStatus');
+
+                reader.onload = (e) => {
+                    try {
+                        const text = e.target.result;
+                        const lines = text.split('\n').filter(line => line.trim());
+                        if (lines.length < 2) {
+                            this.showImportStatus('CSV file is empty or invalid.', 'error');
+                            return;
+                        }
+
+                        const headers = this.parseCSVLine(lines[0]);
+                        const existingProducts = getProducts();
+                        let maxId = existingProducts.length > 0 ? Math.max(...existingProducts.map(p => p.id)) : 0;
+                        let imported = 0;
+
+                        for (let i = 1; i < lines.length; i++) {
+                            const values = this.parseCSVLine(lines[i]);
+                            if (values.length < headers.length) continue;
+
+                            const product = {};
+                            headers.forEach((header, idx) => {
+                                product[header.trim().toLowerCase()] = values[idx].trim();
+                            });
+
+                            if (!product.name || !product.price) continue;
+
+                            maxId++;
+                            existingProducts.push({
+                                id: product.id ? parseInt(product.id) : maxId,
+                                name: product.name,
+                                category: product.category || 'AI Cameras',
+                                price: parseFloat(product.price) || 0,
+                                image: product.image || '',
+                                description: product.description || ''
+                            });
+                            imported++;
+                        }
+
+                        saveProducts(existingProducts);
+                        this.renderTable();
+                        this.updateStats();
+                        this.showImportStatus(`Successfully imported ${imported} products!`, 'success');
+                    } catch (err) {
+                        this.showImportStatus(`Import failed: ${err.message}`, 'error');
+                    }
+                };
+
+                reader.onerror = () => {
+                    this.showImportStatus('Failed to read file.', 'error');
+                };
+
+                reader.readAsText(file);
+            },
+
+            parseCSVLine(line) {
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') {
+                        if (inQuotes && line[i + 1] === '"') {
+                            current += '"';
+                            i++;
+                        } else {
+                            inQuotes = !inQuotes;
+                        }
+                    } else if (char === ',' && !inQuotes) {
+                        result.push(current);
+                        current = '';
+                    } else {
+                        current += char;
+                    }
+                }
+                result.push(current);
+                return result;
+            },
+
+            showImportStatus(message, type) {
+                const statusEl = document.getElementById('csvImportStatus');
+                statusEl.textContent = message;
+                statusEl.className = `csv-import-status ${type}`;
+                setTimeout(() => {
+                    statusEl.className = 'csv-import-status';
+                }, 5000);
+            }
+        };
+    </script>
+</body>
+</html>
